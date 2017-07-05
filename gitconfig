@@ -1,0 +1,8 @@
+[core]
+    editor = vim
+[user]
+    name = Katelyn Baker
+[diff]
+    tool=vimdiff
+[difftool]
+    prompt=false

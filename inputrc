@@ -10,7 +10,7 @@ set expand-tilde On
 set visible-stats On
 set mark-modified-lines On
 set mark-directories On
- 
+
 # Home Key
 "\e[7~":beginning-of-line
 
@@ -19,7 +19,7 @@ set mark-directories On
 
 # Delete Key
 "\e[3~":delete-char
- 
+
 "\e[1~": beginning-of-line
 "\e[4~": end-of-line
 "\e[5~": beginning-of-history
@@ -29,13 +29,13 @@ set mark-directories On
 "\e[5D": backward-word
 "\e\e[C": forward-word
 "\e\e[D": backward-word
- 
+
 # have up / down arrows contect sensitive, i.e.
 # if there is already text at the prompt, it will
 # only search history begining with that text
 "\e[B": history-search-forward
 "\e[A": history-search-backward
- 
+
 $if Bash
   Space: magic-space
 $endif

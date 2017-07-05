@@ -9,8 +9,13 @@ filetype plugin indent on
 " When running vimdiff set the colour scheme to something that makes diffs
 " actually viewable
 "
+let hostname = substitute(system('hostname'), '\n', '', '')
 if &diff
-  colorscheme delek
+    if hostname == "stormsender"
+      colorscheme industry
+    else
+      colorscheme delek
+    endif
 endif
 
 augroup vimrcEx
