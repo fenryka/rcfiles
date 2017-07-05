@@ -3,44 +3,39 @@
 set nocompatible
 set backspace=indent,eol,start
 
+filetype plugin indent on
 
-if has("autocmd")
-  filetype plugin indent on
+augroup vimrcEx
+au!
 
-  augroup vimrcEx
-  au!
+autocmd FileType text setlocal textwidth=78
 
-  autocmd FileType text setlocal textwidth=78
+autocmd BufReadPost *
+  \ if line("'\"") > 0 && line("'\"") <= line("$") |
+  \   exe "normal g`\"" |
+  \ endif
 
-  autocmd BufReadPost *
-    \ if line("'\"") > 0 && line("'\"") <= line("$") |
-    \   exe "normal g`\"" |
-    \ endif
+  " highlight trailing whitespace and tabs on each line for ALL file types
+  autocmd BufReadPost,BufNewFile * call SetTrailWS()
 
-    " highlight trailing whitespace and tabs on each line for ALL file types
-    autocmd BufReadPost,BufNewFile * call SetTrailWS()
+  autocmd BufReadPost,BufNewFile *
+      \ if &filetype == "vim" |
+      \   call MapVimKeys() | 
+      \ endif
 
-    autocmd BufReadPost,BufNewFile *
-        \ if &filetype == "vim" |
-        \   call MapVimKeys() | 
-        \ endif
+  autocmd BufReadPost,BufNewFile *
+      \ if &filetype == "cpp" | call SetCPP() | endif
 
-    autocmd BufReadPost,BufNewFile *
-        \ if &filetype == "cpp" | call SetCPP() | endif
+  autocmd BufReadPost,BufNewFile *
+      \ if &filetype == "python" | call SetPy() | endif
 
-    autocmd BufReadPost,BufNewFile *
-        \ if &filetype == "pyct" | call SetCPP() | endif
+augroup END
 
-    autocmd BufReadPost,BufNewFile *
-        \ if &filetype == "python" | call SetPy() | endif
-
-  augroup END
-
-else
-
-  set autoindent		" always set autoindenting on
-
-endif " has("autocmd")
+"
+" For git commits turn spell checking on use ]s [s to hop between erros and z= to
+" bring up a list of potential corrections
+"
+autocmd FileType gitcommit set spell
 
 syntax on
 set hlsearch
