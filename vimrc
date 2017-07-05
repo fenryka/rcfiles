@@ -5,6 +5,14 @@ set backspace=indent,eol,start
 
 filetype plugin indent on
 
+"
+" When running vimdiff set the colour scheme to something that makes diffs
+" actually viewable
+"
+if &diff
+  colorscheme delek
+endif
+
 augroup vimrcEx
 au!
 
@@ -53,17 +61,17 @@ set lz " lazy redraw - won't redraw whilst running a macro
 set lsp=0
 set so=5
 set history=50
-set ruler 
+set ruler
 set showcmd
 set incsearch
 
 set foldenable
-set foldcolumn=1
 set foldmethod=marker
-
+set foldcolumn=1
 set novisualbell
 set gdefault
 
+set autoindent
 set smartindent
 
 set wildmenu
@@ -76,6 +84,9 @@ set nobackup
 
 set laststatus=2
 set statusline=%<Type:%Y\ %=ASCII:%b\ Column:%c\ Line:%l\ Where:%P
+
+" maps \k to highlight the current line
+nnoremap <silent> <Leader>k mk:exe 'match Search /<Bslash>%'.line(".").'l/'<CR>
 
 " add more bracket types to the matchpairs list for
 " highlighting purposes
