@@ -1,0 +1,16 @@
+set bell-style none
+set meta-flag On
+set input-meta On
+set output-meta On
+set convert-meta Off
+set horizontal-scroll-mode On   # scroll long command lines
+set show-all-if-ambiguous On    # after TAB is pressed
+
+# Home Key
+"\e[7~":beginning-of-line
+
+# End Key
+"\e[8~":end-of-line
+
+# Delete Key
+"\e[3~":delete-char
