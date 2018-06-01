@@ -90,6 +90,8 @@ set nobackup
 set laststatus=2
 set statusline=%<Type:%Y\ %=ASCII:%b\ Column:%c\ Line:%l\ Where:%P
 
+set clipboard=exclude:.*
+
 " maps \k to highlight the current line
 nnoremap <silent> <Leader>k mk:exe 'match Search /<Bslash>%'.line(".").'l/'<CR>
 
