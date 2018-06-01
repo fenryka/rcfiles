@@ -40,22 +40,12 @@ alias gvim="gvim -p"
 alias pd="pushd ."
 alias pcd="pd; cd"
 
-#export PATH="/usr/texbin:$PATH"
-
 shopt -s checkwinsize
+
+source ~/.bashrc.local
 
 if [ $HOSTNAME = "stormsender" ]; then
     export PATH="$PATH:~/bin"
     # IntellJiJ install location    
     export PATH="$PATH:~/bin/idea-IC-171.4694.23/bin"
-fi
-
-if [ $HOSTNAME = "DEVMAC15UK-08.local" ]; then
-    export PATH=$PATH:/Applications/MacVim.app/Contents/bin
-    export PATH=$PATH:~/bin/kotlinc/bin
-    export PATH=$PATH:~/bin/scripts
-
-    export CLICOLOR=1
-    export LSCOLORS=ExFxCxDxBxegedabagacad
-    export JAVA_HOME=$(/usr/libexec/java_home)
 fi
