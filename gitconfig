@@ -1,7 +1,8 @@
 [core]
     editor = vim
 [user]
-    name = Katelyn Baker
+	name = Katelyn Baker
+	email = katelyn.baker@r3.com
 [diff]
     tool=vimdiff
 [difftool]

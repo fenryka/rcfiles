@@ -43,9 +43,3 @@ alias pcd="pd; cd"
 shopt -s checkwinsize
 
 source ~/.bashrc.local
-
-if [ $HOSTNAME = "stormsender" ]; then
-    export PATH="$PATH:~/bin"
-    # IntellJiJ install location    
-    export PATH="$PATH:~/bin/idea-IC-171.4694.23/bin"
-fi
