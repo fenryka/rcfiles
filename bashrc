@@ -25,7 +25,6 @@ shopt -s histappend
 HISTSIZE=1000
 HISTFILESIZE=2000
 
-alias ls="ls -FG"
 alias vim="vim -n -p"
 alias bim="vim -n -p"
 alias cim="vim -n -p"
@@ -39,6 +38,12 @@ alias grep="grep --color -n"
 alias gvim="gvim -p"
 alias pd="pushd ."
 alias pcd="pd; cd"
+
+if [ "$(uname)" == "Darwin" ]; then
+    alias ls="ls -FG"
+elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+    alias ls="ls --color=auto"
+fi
 
 shopt -s checkwinsize
 
