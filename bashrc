@@ -41,6 +41,7 @@ alias pcd="pd; cd"
 
 if [ "$(uname)" == "Darwin" ]; then
     alias ls="ls -FG"
+    source /etc/bashrc_Apple_Terminal
 elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     alias ls="ls --color=auto"
 fi
