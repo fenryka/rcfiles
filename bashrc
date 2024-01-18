@@ -42,6 +42,10 @@ alias pcd="pd; cd"
 if [ "$(uname)" == "Darwin" ]; then
     alias ls="ls -FG"
     source /etc/bashrc_Apple_Terminal
+
+    export HOMEBREW_CASK_OPTS="--no-quarantine"
+    export PATH="$PATH:/opt/homebrew/bin:/opt/homebrew/sbin"
+
 elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     alias ls="ls --color=auto"
 fi
