@@ -1,8 +1,17 @@
 [core]
     editor = vim
 [user]
-	name = Katelyn Baker
+    name = Katelyn Baker
 [diff]
     tool=vimdiff
+
 [difftool]
     prompt=false
+
+[include]
+    path = ~/.gitconfig.local
+[filter "lfs"]
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+    required = true
