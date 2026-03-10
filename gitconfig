@@ -1,7 +1,8 @@
 [core]
     editor = vim
 [user]
-    name = Katelyn Baker
+	name = Katelyn Faith Baker
+	email = kat@generative.vision
 [diff]
     tool=vimdiff
 
@@ -15,3 +16,6 @@
     smudge = git-lfs smudge -- %f
     process = git-lfs filter-process
     required = true
+
+[format]
+    pretty = %C(auto,yellow)%h%C(auto,magenta)% G? %C(auto,blue)%ad %C(auto,green)%<(25,trunc)%aN%C(auto,reset)%s%C(auto,red)% gD% D

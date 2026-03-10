@@ -38,13 +38,15 @@ alias grep="grep --color -n"
 alias gvim="gvim -p"
 alias pd="pushd ."
 alias pcd="pd; cd"
+alias path="tr ':' '\n' <<< \"$PATH\""
+alias git_branch_clean="for x in `git branch  | grep -v main | awk ' { print $2  } '`; do git branch -D $x; done"
 
 if [ "$(uname)" == "Darwin" ]; then
     alias ls="ls -FG"
     source /etc/bashrc_Apple_Terminal
 
     export HOMEBREW_CASK_OPTS="--no-quarantine"
-    export PATH="$PATH:/opt/homebrew/bin:/opt/homebrew/sbin"
+    export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
 
 elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     alias ls="ls --color=auto"
@@ -52,4 +54,7 @@ fi
 
 shopt -s checkwinsize
 
-source ~/.bashrc.local
+#source ~/.bashrc.local
+
+#source /Users/kat/.bash_completions/user_token.sh
+#. "$HOME/.cargo/env"
