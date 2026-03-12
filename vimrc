@@ -9,13 +9,8 @@ filetype plugin indent on
 " When running vimdiff set the colour scheme to something that makes diffs
 " actually viewable
 "
-let hostname = substitute(system('hostname'), '\n', '', '')
 if &diff
-    if hostname == "stormsender"
-      colorscheme industry
-    else
-      colorscheme delek
-    endif
+    colorscheme delek
 endif
 
 augroup vimrcEx
@@ -55,7 +50,6 @@ set hlsearch
 set ts=4
 set sw=4
 set expandtab
-set nobackup
 set smarttab
 set vb t_vb=
 set ttyfast
@@ -82,7 +76,6 @@ set smartindent
 set wildmenu
 set wildmode=list:longest,full
 set wildignore=*~,*.o,CVS,*.pyc
-set showcmd
 set showmode
 
 set nobackup
@@ -184,72 +177,22 @@ endfunction
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 function! SetCPP(...)
-    "echo "SetCPP"
-    syn keyword     apfBasicTypes       sString sInstant sList
-                                        \ sAssoc smart_ptr AddressList
-                                        \ AbstractDescriptor
-                                        \ CriticalSection s_instant_t
-                                        \ AtomicValue AtomicBool
-                                        \ AtomicInt AtomicCounter
-                                        \ Condition sSmartPtr sDuration
-                                        \ sInstant auto_ptr
-
-    syn keyword     apfAutoTypes        AutoStack AutoLock sAutoLock
-                                        \ safe_lock unsafe_lock
-                                        \ AutoTryLock
-
-    syn keyword     apfDebugTypes       s_assert QE_DBG
-    syn keyword     apfCastTypes        tmp_64bit_cast sp_dynamic_cast
-    syn keyword     apfBooleanTypes     true false
-    syn keyword     apfIteratorTypes    iterator const_iterator sAssocIter
-
     syn match       cppNamespaces       "\<std::\|\<boost::"
-    syn match       myNamespaces        "\<store::\|\<common::\|\<njal::\|\<list::"
-
-    " Custom highlighting 
-    hi apfBasicColor
-        \ guifg=magenta guibg=NONE
-        \ ctermfg=magenta ctermbg=NONE
-
-    hi apfDebugColours 
-        \ guifg=cyan guibg=NONE
-        \ ctermfg=cyan ctermbg=NONE
-
-    hi apfBooleanColours
-        \ gui=bold guifg=red
-        \ term=bold cterm=bold ctermfg=red
 
     hi cppNamespacesColours
         \ gui=bold guifg=red guibg=NONE
         \ cterm=bold ctermfg=red ctermbg=NONE
 
-    hi myNamespacesColours
-        \ gui=bold guifg=DarkMagenta guibg=NONE
-        \ cterm=bold ctermfg=DarkMagenta ctermbg=NONE
-
-    " Link the keyword groups to colour mappings 
-    hi def link apfBasicTypes apfBasicColor
-    hi def link apfAutoTypes Special
-    hi def link apfDebugTypes apfDebugColours
-    hi def link apfCastTypes cppStatement
-    hi def link apfBooleanTypes apfBooleanColours
-
     hi def link cppNamespaces cppNamespacesColours
-    hi def link myNamespaces myNamespacesColours
-    hi def link apfIteratorTypes Type
-
-    " Key mappings [[[
 
     " Comment the current line
     map <C-C> O/*  */<ESC>2hi
 
-    " draw a comment seperator
-    "map <F2> A/<Esc>68A*<Esc>A/<Esc>
+    " draw a comment separator
     map <F2> A/<Esc>78A*<Esc>A/<Esc>
 
-    " draw a comment block and leave curser primed for
-    " input
-    map <F3> i/<ESC>68A*<ESC>4A<CR><ESC>67A*<ESC>A/<CR><ESC>3kA 
+    " draw a comment block and leave cursor primed for input
+    map <F3> i/<ESC>68A*<ESC>4A<CR><ESC>67A*<ESC>A/<CR><ESC>3kA
 
     " Comment the current line
     map <F6> :s/^/\/\//g <CR> :noh <CR>
@@ -262,8 +205,6 @@ function! SetCPP(...)
 
     " Close a code fold
     map <C-X> o/* }}} */<ESC>
-
-    " ]]]
 
 endfunction
 

@@ -17,5 +17,11 @@
     process = git-lfs filter-process
     required = true
 
+[pull]
+    rebase = true
+
+[init]
+    defaultBranch = main
+
 [format]
     pretty = %C(auto,yellow)%h%C(auto,magenta)% G? %C(auto,blue)%ad %C(auto,green)%<(25,trunc)%aN%C(auto,reset)%s%C(auto,red)% gD% D

@@ -46,6 +46,8 @@ setopt PROMPT_SUBST   # allow command substitution in PROMPT
 # ============================================================
 # Completion
 # ============================================================
+# Docker CLI completions must be on fpath before compinit runs
+[[ -d $HOME/.docker/completions ]] && fpath=($HOME/.docker/completions $fpath)
 autoload -Uz compinit && compinit
 
 # ============================================================
@@ -165,10 +167,5 @@ fi
     source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # Syntax highlighting — must be sourced last
-source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-# The following lines have been added by Docker Desktop to enable Docker CLI completions.
-fpath=(/Users/kat/.docker/completions $fpath)
-autoload -Uz compinit
-compinit
-# End of Docker CLI completions
+[[ -f /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && \
+    source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

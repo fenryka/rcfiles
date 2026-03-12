@@ -8,8 +8,6 @@ esac
 
 export INPUTRC=~/.inputrc
 
-HOST=`hostname`
-
 #
 # Set the command prompt up the way I like it
 #
@@ -39,7 +37,7 @@ alias gvim="gvim -p"
 alias pd="pushd ."
 alias pcd="pd; cd"
 alias path="tr ':' '\n' <<< \"$PATH\""
-alias git_branch_clean="for x in `git branch  | grep -v main | awk ' { print $2  } '`; do git branch -D $x; done"
+git_branch_clean() { git branch | grep -v main | awk '{ print $NF }' | xargs git branch -D; }
 
 if [ "$(uname)" == "Darwin" ]; then
     alias ls="ls -FG"
