@@ -15,5 +15,40 @@
   "enabledPlugins": {
     "rust-analyzer-lsp@claude-plugins-official": true
   },
-  "effortLevel": "high"
+  "effortLevel": "high",
+  "permissions": {
+    "additionalDirectories": ["/Users/kat/srcs"],
+    "allow": [
+      "Bash(ls *)",
+      "Bash(grep *)",
+      "Bash(rg *)",
+      "Bash(find *)",
+      "Bash(cat *)",
+      "Bash(head *)",
+      "Bash(tail *)",
+      "Bash(wc *)",
+      "Bash(tree *)",
+      "Bash(pwd)",
+      "Bash(which *)",
+      "Bash(file *)",
+      "Bash(stat *)",
+      "Bash(git status)",
+      "Bash(git diff *)",
+      "Bash(git log *)",
+      "Bash(git show *)",
+      "Bash(git branch *)",
+      "Bash(git remote *)",
+      "Bash(git fetch *)",
+      "Bash(nix *)",
+      "Bash(nix-store *)",
+      "Bash(nix-shell *)"
+    ]
+  },
+  "sandbox": {
+    "filesystem": {
+      "allowRead": ["/Users/kat/srcs/**"]
+    }
+  },
+  "autoMemoryEnabled": true,
+  "autoDreamEnabled": true
 }
