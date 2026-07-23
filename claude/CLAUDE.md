@@ -25,6 +25,18 @@ Never modify shared libraries, packages, or services outside the current
 project/service boundary. Only modify code you've been explicitly asked to
 work in.
 
+When the next step is obvious from context, proceed rather than asking. Do not
+over-explore fixtures or the broader codebase before acting on a clear path.
+
+Before changing any code to fix a bug or regression, confirm the root cause
+with evidence (grep/read output showing the specific line). Do not patch
+unrelated issues or speculate about causes before the real culprit is
+identified.
+
+When doing renames or import fixes, search the entire repo including top-level
+directories (e.g. `migrations/`), not just `src/` and `tests/`. Run a final
+repo-wide verification pass to confirm nothing dangles.
+
 ---
 
 ## Shell Environment
@@ -55,6 +67,18 @@ If a router is only mounted when a setting is enabled, the handler can
 assume that setting is enabled. Belt-and-braces assertions documenting
 non-obvious invariants are fine; HTTP 5xx branches for impossible states
 aren't.
+
+A stated directional goal is a hard constraint, whether it comes from the
+prompt or from an existing code comment (e.g. "eventually decouple X from Y",
+"this should move to the dynamo crate"). Check every change against that
+direction before acting. If a change moves against it, stop and say so rather
+than proceeding. A local precedent (how a sibling value happens to be wired
+today) does not override a stated goal: matching the precedent is the wrong
+move when the whole point is to change it.
+
+Before starting a multi-file refactor, state the target domain layer and the
+abstraction you'll use, then wait for confirmation before implementing. Do not
+begin until the layer placement is agreed.
 
 ---
 
@@ -87,6 +111,12 @@ check, say so explicitly and list what verification is pending.
 Never redefine or move existing types (structs, enums, traits). Always find
 the canonical location and import from there. Search the codebase before
 assuming a type needs to be created.
+
+Do not introduce a new type (struct, enum, wrapper) to hold config or state
+without first naming the existing types you considered and why each won't
+serve. The default assumption is that an existing type is the right home. If
+the justification doesn't fit in one line, it isn't justified yet: ask before
+creating.
 
 ### Concurrency
 
@@ -144,6 +174,10 @@ existing sibling services.
 
 Organise new types and models by concept, co-located in their domain files.
 Do not create a catch-all `models.py` to dump unrelated types into.
+
+Do not present Python work as complete until `ruff check`, `mypy`, and `pytest`
+all pass. If the project uses `nix flake check`, run that instead. Say so
+explicitly if you cannot run checks, and list what verification is pending.
 
 ### Commands
 
@@ -205,6 +239,29 @@ under the backend's directory. Mirror the existing structure (e.g.
 `tests/bus/exploration_state/` testing the accessor against the in-memory
 backend) — not `tests/bus/backends/in_memory/test_accessor.py`.
 
+### Readability: show the story
+
+I value tests I can read as a story, with the meaningful values visible, as
+much as I value correctness. When writing tests:
+
+- Put the values that matter in the test body where they can be read. Don't
+  bury them in builder helpers or comparison helpers (e.g. a `by_sort_key`
+  that hides what was actually stored and returned). Minimise indirection.
+- Assert against literal expected values so correctness is verifiable from the
+  assertion alone — e.g. with composite keys, assert the fetch returns exactly
+  `["a#0", "a#1"]`, so a reader sees what went in and what came back.
+- Include at least one fully-inline example showing the complete shape and real
+  values (no helper). Use a thin builder only for incidental detail in tests
+  focused on something else, and have it foreground the keys/fields under test.
+- Test a low-level mechanism directly with plain values (e.g. a composite range
+  key driven with bare `{"HK": ..., "RK": "a#0"}` items), separately from the
+  high-level mapping that sits on top. Don't only prove the mechanism
+  transitively through noisy domain types.
+- Prefer unpacking like `[only] = result` to assert "exactly one" and bind it
+  readably.
+
+This is in addition to correctness, never instead of it.
+
 ---
 
 ## Schema & Versioning
@@ -238,6 +295,9 @@ before starting any review.
 
 Before posting MR/PR comments or committing, always show drafts to me for
 review first. Never post or commit without explicit approval.
+
+Never assume a rebase is ongoing or complete — always confirm actual state
+with `git status` before reporting or continuing.
 
 ---
 

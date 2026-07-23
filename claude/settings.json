@@ -1,23 +1,5 @@
 {
-  "hooks": {
-    "PostToolUse": [
-      {
-        "matcher": "Edit|Write",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "input=$(cat); file=$(echo \"$input\" | jq -r '.tool_input.file_path // empty'); cwd=$(echo \"$input\" | jq -r '.cwd // empty'); if [[ \"$file\" == *.rs ]] && [[ -n \"$cwd\" ]]; then cd \"$cwd\" && cargo check --quiet 2>&1 | head -20; elif [[ \"$file\" == *.py ]] && [[ -n \"$file\" ]]; then mypy \"$file\" --no-error-summary 2>&1 | head -10; fi"
-          }
-        ]
-      }
-    ]
-  },
-  "enabledPlugins": {
-    "rust-analyzer-lsp@claude-plugins-official": true
-  },
-  "effortLevel": "high",
   "permissions": {
-    "additionalDirectories": ["/Users/kat/srcs"],
     "allow": [
       "Bash(ls *)",
       "Bash(grep *)",
@@ -42,13 +24,34 @@
       "Bash(nix *)",
       "Bash(nix-store *)",
       "Bash(nix-shell *)"
+    ],
+    "additionalDirectories": [
+      "/Users/kat/srcs"
     ]
   },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "input=$(cat); file=$(echo \"$input\" | jq -r '.tool_input.file_path // empty'); cwd=$(echo \"$input\" | jq -r '.cwd // empty'); if [[ \"$file\" == *.rs ]] && [[ -n \"$cwd\" ]]; then cd \"$cwd\" && cargo check --quiet 2>&1 | head -20; elif [[ \"$file\" == *.py ]] && [[ -n \"$file\" ]]; then mypy \"$file\" --no-error-summary 2>&1 | head -10; fi"
+          }
+        ]
+      }
+    ]
+  },
+  "enabledPlugins": {},
   "sandbox": {
     "filesystem": {
-      "allowRead": ["/Users/kat/srcs/**"]
+      "allowRead": [
+        "/Users/kat/srcs/**"
+      ]
     }
   },
+  "effortLevel": "high",
+  "tui": "fullscreen",
   "autoMemoryEnabled": true,
   "autoDreamEnabled": true
 }
